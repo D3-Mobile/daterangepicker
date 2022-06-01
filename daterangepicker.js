@@ -7,7 +7,6 @@
 */
 // Following the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
 (function (root, factory) {
-    console.log('My code runnning!!!');
     if (typeof define === 'function' && define.amd) {
         // AMD. Make globaly available as well
         define(['moment', 'jquery'], function (moment, jquery) {
@@ -1121,8 +1120,7 @@
                         right: 'auto'
                     });
                 }
-            } 
-            else {
+            } else {
                 var containerLeft = this.element.offset().left - parentOffset.left;
                 if (containerLeft + containerWidth > $(window).width()) {
                     this.container.css({
@@ -1404,7 +1402,7 @@
                   this.clickApply();
                 }
             }
-            
+
             if (this.singleDatePicker) {
                 this.setEndDate(this.startDate);
                 if (!this.timePicker && this.autoApply)
@@ -1585,7 +1583,6 @@
                 start = moment(this.element.val(), this.locale.format);
                 end = start;
             }
-
 
             if (!start.isValid() || !end.isValid()) return;
 
