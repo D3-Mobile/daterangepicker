@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: /
+          path: /*
      
   deploy:
     if: github.event_name == 'push' || github.event.inputs.environment_name
