@@ -1626,8 +1626,8 @@
 
     };
 
-    $.fn.daterangepicker = function(options, callback) {
-        var implementOptions = $.extend(true, {}, $.fn.daterangepicker.defaultOptions, options);
+    $.fn.dateRangePicker = function(options, callback) {
+        var implementOptions = $.extend(true, {}, $.fn.dateRangePicker.defaultOptions, options);
         this.each(function() {
             var el = $(this);
             if (el.data('daterangepicker'))
