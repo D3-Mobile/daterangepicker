@@ -26,7 +26,7 @@
         module.exports = factory(moment, jQuery);
     } else {
         // Browser globals
-        root.daterangepicker = factory(root.moment, root.jQuery);
+        root.dateRangePicker = factory(root.moment, root.jQuery);
     }
 }(typeof window !== 'undefined' ? window : this, function(moment, $) {
     var DateRangePicker = function(element, options, cb) {
