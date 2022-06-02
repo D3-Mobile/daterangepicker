@@ -1,15 +1,11 @@
 {
-  "name": "daterangepicker",
+  "name": "@d3-mobile/daterangepicker",
   "version": "3.1.0",
   "description": "Date range picker component for Bootstrap",
   "main": "daterangepicker.js",
   "style": "daterangepicker.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dangrossman/daterangepicker.git"
   },
   "author": {
     "name": "Dan Grossman",
@@ -24,5 +20,9 @@
   "dependencies": {
     "jquery": ">=1.10",
     "moment": "^2.9.0"
-  }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "git@github.com:D3-Mobile/daterangepicker.git"
 }

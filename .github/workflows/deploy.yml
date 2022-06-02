@@ -1,0 +1,105 @@
+# This is a basic workflow to help you get started with Actions
+
+name: DateRangePicker-CICD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events 
+  push:
+    branches: [ main ]
+  pull_request:
+
+  # # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+  #   inputs:
+  #       environment_name:
+  #         description: 'Enter Environment (prd) :'
+  #         default: 'main'
+  #         required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
+      - name: Echo the branch name
+        run: echo "Branch name ${GIT_BRANCH_NAME}"
+      - name: Create prd env file
+        if: github.event.ref == 'refs/heads/prd' || github.event.inputs.environment_name == 'prd'
+        run: | 
+          cat > .env << EOF
+          ${{ secrets.PRD }}
+          EOF
+      - name: Add GITHUB_TOKEN to .yarnrc
+        run: |
+          cat >> ~/.yarnrc << EOF
+          "//npm.pkg.github.com/:_authToken" "${{ secrets.GITHUB_TOKEN }}"
+          "//npm.pkg.github.com/:_header:Authorization" "token ${{ secrets.GITHUB_TOKEN }}"
+          EOF
+      - name: Add GITHUB_TOKEN to .npmrc
+        run: |
+          cat >> ~/.npmrc << EOF
+          //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
+          EOF
+      - name: Install dependencies
+        run: yarn
+      - name: Run EsLint
+        run: yarn lint
+        env:
+          CI: true
+
+       # Share artifact inside workflow
+      - name: Share artifact inside workflow
+        if: github.event_name == 'push' || github.event.inputs.environment_name
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+     
+  deploy:
+    if: github.event_name == 'push' || github.event.inputs.environment_name
+    runs-on: ubuntu-latest
+    environment:
+      name: deploy
+    # When application is successfully tested and build has been generated
+    # Then we can start with deployment
+    needs: build
+    steps:
+      - name: Add GITHUB_TOKEN to .yarnrc
+        run: |
+          cat >> ~/.yarnrc << EOF
+          "//npm.pkg.github.com/:_authToken" "${{ secrets.GITHUB_TOKEN }}"
+          "//npm.pkg.github.com/:_header:Authorization" "token ${{ secrets.GITHUB_TOKEN }}"
+          EOF
+      - name: Add GITHUB_TOKEN to .npmrc
+        run: |
+          cat >> ~/.npmrc << EOF
+          //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}
+          EOF
+      - uses: actions/checkout@v2
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
+      - name: Echo the branch name
+        run: echo "Branch name ${GIT_BRANCH_NAME}"
+      - name: set env
+        if: github.event.inputs.environment_name
+        run: echo "GIT_BRANCH_NAME=${{ github.event.inputs.environment_name }}" >> $GITHUB_ENV
+       # Download previously shared build
+      - name: Get artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Automated Version Bump
+        uses: phips28/gh-action-bump-version@v9.0.16
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Build
+        run: npm publish
