@@ -51,10 +51,6 @@ jobs:
           EOF
       - name: Install dependencies
         run: yarn
-      - name: Run EsLint
-        run: yarn lint
-        env:
-          CI: true
 
        # Share artifact inside workflow
       - name: Share artifact inside workflow
