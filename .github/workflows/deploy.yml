@@ -52,14 +52,6 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-       # Share artifact inside workflow
-      - name: Share artifact inside workflow
-        if: github.event_name == 'push' || github.event.inputs.environment_name
-        uses: actions/upload-artifact@v1
-        with:
-          name: dist
-          path: /*
-     
   deploy:
     if: github.event_name == 'push' || github.event.inputs.environment_name
     runs-on: ubuntu-latest
@@ -89,11 +81,6 @@ jobs:
       - name: set env
         if: github.event.inputs.environment_name
         run: echo "GIT_BRANCH_NAME=${{ github.event.inputs.environment_name }}" >> $GITHUB_ENV
-       # Download previously shared build
-      - name: Get artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: dist
       - name: Automated Version Bump
         uses: phips28/gh-action-bump-version@v9.0.16
         env:
