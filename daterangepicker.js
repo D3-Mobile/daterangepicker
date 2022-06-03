@@ -1272,7 +1272,7 @@
 
         mouseDownDate: function(e) {
             //ignore dates that can't be selected
-            if (!$(e.target).hasClass('date-circle')) return;
+            if (!$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('.off.disabled')) return;
 
             $(e.target).addClass('active')
         },
@@ -1280,7 +1280,7 @@
         hoverDate: function(e) {
 
             //ignore dates that can't be selected
-            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle')) return;
+            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('.off.disabled')) return;
 
             var title = '';
             if ($(e.target).hasClass('date-circle')) {
@@ -1332,7 +1332,7 @@
         },
 
         clickDate: function(e) {
-            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle')) return;
+            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('.off.disabled')) return;
 
             var title = '';
             if ($(e.target).hasClass('date-circle')) {
