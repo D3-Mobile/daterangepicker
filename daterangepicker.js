@@ -1332,6 +1332,8 @@
         },
 
         clickDate: function(e) {
+            console.log("$(e.target).parent()", $(e.target).parent());
+            console.log("$(e.target).parent().hasClass('.off.disabled')", $(e.target).parent().hasClass('.off.disabled'));
             if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('.off.disabled')) return;
 
             var title = '';
