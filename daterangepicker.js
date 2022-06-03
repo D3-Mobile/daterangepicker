@@ -1272,7 +1272,7 @@
 
         mouseDownDate: function(e) {
             //ignore dates that can't be selected
-            if (!$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('off.disabled')) return;
+            if (!$(e.target).hasClass('date-circle') || $(e.target).parents('.off.disabled').length) return;
 
             $(e.target).addClass('active')
         },
@@ -1280,7 +1280,7 @@
         hoverDate: function(e) {
 
             //ignore dates that can't be selected
-            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parent().hasClass('off.disabled')) return;
+            if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parents('.off.disabled').length) return;
 
             var title = '';
             if ($(e.target).hasClass('date-circle')) {
@@ -1332,8 +1332,6 @@
         },
 
         clickDate: function(e) {
-            console.log("$(e.target).parent().hasClass('td.off.disabled')", $(e.target).parent().hasClass('td.off.disabled'));
-            console.log("$(e.target).parents('.off.disabled').length')", $(e.target).parents('.off.disabled').length);
             if (!$(e.target).hasClass('available') && !$(e.target).hasClass('date-circle') || $(e.target).parents('.off.disabled').length) return;
 
             var title = '';
