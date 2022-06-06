@@ -1044,7 +1044,7 @@
         },
 
         move: function() {
-            var parentOffset = { top: -8, left: 18 },
+            var parentOffset = { top: -32 ? $('.dateRangePickerInput.invalidDate').length : -8 , left: 18 },
                 containerTop,
                 drops = this.drops;
 
