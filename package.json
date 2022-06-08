@@ -1,6 +1,6 @@
 {
   "name": "@d3-mobile/daterangepicker",
-  "version": "3.1.20",
+  "version": "3.1.21",
   "description": "Date range picker component for Bootstrap",
   "main": "daterangepicker.js",
   "style": "daterangepicker.css",
