@@ -1060,19 +1060,19 @@
             }
 
             switch (drops) {
-            case 'auto':
-                containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
-                if (containerTop + this.container.outerHeight() >= this.parentEl[0].scrollHeight) {
+                case 'auto':
+                    containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
+                    if (containerTop + this.container.outerHeight() >= this.parentEl[0].scrollHeight) {
+                        containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
+                        drops = 'up';
+                    }
+                    break;
+                case 'up':
                     containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
-                    drops = 'up';
-                }
-                break;
-            case 'up':
-                containerTop = this.element.offset().top - this.container.outerHeight() - parentOffset.top;
-                break;
-            default:
-                containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
-                break;
+                    break;
+                default:
+                    containerTop = this.element.offset().top + this.element.outerHeight() - parentOffset.top;
+                    break;
             }
 
             // Force the container to it's actual width
@@ -1158,6 +1158,7 @@
 
             // Reposition the picker if the window is resized while it's open
             $(window).on('resize.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
+            $(window).on('scroll.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
 
             this.oldStartDate = this.startDate.clone();
             this.oldEndDate = this.endDate.clone();
