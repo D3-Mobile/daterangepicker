@@ -434,6 +434,7 @@
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
         this.element.parent().on('click.daterangepicker', $.proxy(this.show, this));
+        this.element.parent().on('scroll.daterangepicker', $.proxy(this.move, this));
 
         if (this.element.is('input') || this.element.is('button')) {
             this.element.on({
@@ -1125,19 +1126,25 @@
                 }
             } else {
                 var containerLeft = this.element.offset().left - parentOffset.left;
-                if (containerLeft + containerWidth > $(window).width()) {
-                    this.container.css({
-                        top: containerTop,
-                        left: 'auto',
-                        right: 0
-                    });
-                } else {
-                    this.container.css({
-                        top: containerTop,
-                        left: containerLeft,
-                        right: 'auto'
-                    });
-                }
+                // do not move calendar to further left if window width is smaller
+                this.container.css({
+                    top: containerTop,
+                    left: containerLeft,
+                    right: 'auto'
+                });
+                // if (containerLeft + containerWidth > $(window).width()) {
+                //     this.container.css({
+                //         top: containerTop,
+                //         left: 'auto',
+                //         right: 0
+                //     });
+                // } else {
+                //     this.container.css({
+                //         top: containerTop,
+                //         left: containerLeft,
+                //         right: 'auto'
+                //     });
+                // }
             }
         },
 
