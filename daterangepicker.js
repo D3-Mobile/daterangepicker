@@ -1130,19 +1130,6 @@
                     left: containerLeft,
                     right: 'auto'
                 });
-                // if (containerLeft + containerWidth > $(window).width()) {
-                //     this.container.css({
-                //         top: containerTop,
-                //         left: 'auto',
-                //         right: 0
-                //     });
-                // } else {
-                //     this.container.css({
-                //         top: containerTop,
-                //         left: containerLeft,
-                //         right: 'auto'
-                //     });
-                // }
             }
         },
 
@@ -1165,7 +1152,7 @@
             // Reposition the picker if the window is resized while it's open
             $(window).on('resize.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
             $(window).on('scroll.dateRangePicker', $.proxy(function(e) { this.move(e); }, this));
-            $('.testMIWAScroll').on('scroll', $.proxy(function(e) { this.move(e); }, this));
+            $('.contentWrapper').on('scroll', $.proxy(function(e) { this.move(e); }, this));
             
 
             this.oldStartDate = this.startDate.clone();
