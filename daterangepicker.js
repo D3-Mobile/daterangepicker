@@ -434,7 +434,6 @@
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
         this.element.parent().on('click.daterangepicker', $.proxy(this.show, this));
-        this.element.parent().on('scroll.daterangepicker', $.proxy(this.move, this));
 
         if (this.element.is('input') || this.element.is('button')) {
             this.element.on({
@@ -1166,7 +1165,7 @@
 
             // Reposition the picker if the window is resized while it's open
             $(window).on('resize.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
-            $(window).on('scroll.dateRangePickerInput', $.proxy(function(e) { this.move(e); }, this));
+            $(window).on('scroll', $.proxy(function(e) { this.move(e); }, this));
 
             this.oldStartDate = this.startDate.clone();
             this.oldEndDate = this.endDate.clone();
