@@ -433,6 +433,8 @@
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this));
 
+        this.element.parent().on('click.daterangepicker', $.proxy(this.show, this));
+
         if (this.element.is('input') || this.element.is('button')) {
             this.element.on({
                 'click.daterangepicker': $.proxy(this.show, this),
@@ -1208,7 +1210,8 @@
                 e.type == "focusin" ||
                 target.closest(this.element).length ||
                 target.closest(this.container).length ||
-                target.closest('.calendar-table').length
+                target.closest('.calendar-table').length ||
+                target.closest('.dateRangePickerInput').length
                 ) return;
             this.hide();
             this.element.trigger('outsideClick.daterangepicker', this);
