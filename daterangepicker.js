@@ -1045,8 +1045,8 @@
 
         },
 
-        move: function() {
-            console.log('move');
+        move: function(e) {
+            console.log('move target', e.target);
             var parentOffset = { top: $('.dateRangePickerInput.invalidDate').length ? -29 : -12 , left: 18 },
                 containerTop,
                 drops = this.drops;
@@ -1165,7 +1165,7 @@
 
             // Reposition the picker if the window is resized while it's open
             $(window).on('resize.daterangepicker', $.proxy(function(e) { this.move(e); }, this));
-            $(window).on('scroll', $.proxy(function(e) { this.move(e); }, this));
+            $('.testProcedureTrendScrollIssue').on('scroll', $.proxy(function(e) { this.move(e); }, this));
 
             this.oldStartDate = this.startDate.clone();
             this.oldEndDate = this.endDate.clone();
